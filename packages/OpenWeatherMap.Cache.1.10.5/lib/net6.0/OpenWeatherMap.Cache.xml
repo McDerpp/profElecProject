@@ -1,0 +1,400 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OpenWeatherMap.Cache</name>
+    </assembly>
+    <members>
+        <member name="T:OpenWeatherMap.Cache.Constants.OpenWeatherMapCacheDefaults">
+            <summary>
+            Class for OpenWeatherMap.Cache defaults
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Cache.Constants.OpenWeatherMapCacheDefaults.DefaultResiliencyPeriod">
+            <summary>
+            The default resiliency period in milliseconds to use if this is not passed on.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Cache.Constants.OpenWeatherMapCacheDefaults.DefaultTimeout">
+            <summary>
+            The default timeout in milliseconds to use if this is not passed on.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Cache.Enums">
+            <summary>
+            Enumeration class for OpenWeatherMap.Cache
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Cache.Enums.FetchMode">
+            <summary>
+            If the time elapsed since the last fetch for the given location exceeds the cache period (i.e. a new API call is required)
+            but is within the resiliency period (i.e. the previous readings are still available in the cache), the API reported measured
+            time in the cache value is sometimes more recent than the latest value fetched from the API. There are three modes to tackle
+            this issue.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Cache.Enums.FetchMode.AlwaysUseLastMeasured">
+            <summary>
+            If the time elapsed since the last fetch for the given location exceeds the cache period (i.e.
+            a new API call is required) but is within the resiliency period (i.e. the previous readings are
+            still available in the cache), and the API reported measured time in the cache value is more
+            recent than the latest value fetched from the API, then return the more recent cached result. The
+            implication is that if you immediately request another reading it will also hit the API again.
+            <br></br><br></br>IMPORTANT: Frequent calls may impact your API usage.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Cache.Enums.FetchMode.AlwaysUseLastMeasuredButExtendCache">
+            <summary>
+            If the time elapsed since the last fetch for the given location exceeds the cache period (i.e.
+            a new API call is required) but is within the resiliency period (i.e. the previous readings are
+            still available in the cache), and the API reported measured time in the cache value is more
+            recent than the latest value fetched from the API, then return the more recent cached result.
+            <br></br><br></br>In order to protect impact on your API usage, this setting updates the cache
+            value's fetched date and extends the cache lifetime.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Cache.Enums.FetchMode.AlwaysUseLastFetchedValue">
+            <summary>
+            If the time elapsed since the last fetch for the given location exceeds the cache period (i.e.
+            a new API call is required) but is within the resiliency period (i.e. the previous readings are
+            still available in the cache), and the API reported measured time in the cache value is more
+            recent than the latest value fetched from the API, then return and cache the last fetched API
+            result, even though it is being reported to be older by the API.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Cache.Extensions.IServiceCollectionExtension">
+            <summary>
+            Extension class for <see cref="T:Microsoft.Extensions.DependencyInjection.IServiceCollection"/>.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Extensions.IServiceCollectionExtension.AddOpenWeatherMapCache(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.String,System.Int32,OpenWeatherMap.Cache.Enums.FetchMode,System.Int32,System.Int32,System.String)">
+            <summary>
+            Adds a singleton service for OpenWeatherMap.Cache for Dependency Injection.
+            </summary>
+            <param name="services">The interface being extended</param>
+            <param name="apiKey">The unique API key obtained from OpenWeatherMap.</param>
+            <param name="apiCachePeriod">The number of milliseconds to cache for.</param>
+            <param name="fetchMode">The mode of operation. Defaults to <see cref="F:OpenWeatherMap.Cache.Enums.FetchMode.AlwaysUseLastMeasuredButExtendCache"/>.</param>
+            <param name="resiliencyPeriod">The number of milliseconds to keep on using cache values if API is unavailable. Defaults to <see cref="F:OpenWeatherMap.Cache.Constants.OpenWeatherMapCacheDefaults.DefaultResiliencyPeriod"/></param>
+            <param name="timeout">The number of milliseconds for the <see cref="T:System.Net.WebRequest"/> timeout. Defaults to <see cref="F:OpenWeatherMap.Cache.Constants.OpenWeatherMapCacheDefaults.DefaultTimeout"/></param>
+            <param name="logPath">Logs the latest result for a given location to file. Defaults to null (disabled).</param>
+            <returns>The service collection</returns>
+        </member>
+        <member name="T:OpenWeatherMap.Cache.Models.Location">
+            <summary>
+            Class for the location with latitude and longitude.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Location.Latitude">
+            <summary>
+            The latitude of the <see cref="T:OpenWeatherMap.Cache.Models.Location"/>.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Location.Longitude">
+            <summary>
+            The longitude of the <see cref="T:OpenWeatherMap.Cache.Models.Location"/>.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.Location.#ctor(System.Double,System.Double)">
+            <summary>
+            Initializes a new instance of <see cref="T:OpenWeatherMap.Cache.Models.Location"/>.
+            </summary>
+            <param name="latitude">The latitude of the location.</param>
+            <param name="longitude">The longitude of the location.</param>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.Location.Equals(OpenWeatherMap.Cache.Models.Location)">
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)"/>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.Location.Equals(System.Object)">
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)"/>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.Location.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenWeatherMap.Cache.Models.ILocationQuery">
+            <summary>
+            Interface for a location query
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Cache.Models.OpenWeatherMapCacheException">
+            <summary>
+            Class for exceptions during API calls
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.OpenWeatherMapCacheException.ApiErrorCode">
+            <summary>
+            The error code returned by the API
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.OpenWeatherMapCacheException.ApiErrorMessage">
+            <summary>
+            The error message returned by the API
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Cache.Models.WeatherCondition">
+            <summary>
+            Class for weather conditions
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.WeatherCondition.ConditionId">
+            <summary>
+            Weather condition id
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.WeatherCondition.Main">
+            <summary>
+            Group of weather parameters (Rain, Snow, Extreme etc.)
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.WeatherCondition.Description">
+            <summary>
+            Weather condition within the group.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.WeatherCondition.IconId">
+            <summary>
+            Weather icon id
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.WeatherCondition.Equals(OpenWeatherMap.Cache.Models.WeatherCondition)">
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)"/>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.WeatherCondition.Equals(System.Object)">
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)"/>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.WeatherCondition.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenWeatherMap.Cache.Models.Readings">
+            <summary>
+            Class for readings
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.Weather">
+            <summary>
+            Weather conditions
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.Temperature">
+            <summary>
+            The temperature of the <see cref="T:OpenWeatherMap.Cache.Models.Readings"/>.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.FeelsLike">
+            <summary>
+            Temperature. This temperature parameter accounts for the human perception of weather.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.Pressure">
+            <summary>
+            The pressure of the <see cref="T:OpenWeatherMap.Cache.Models.Readings"/>.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.Humidity">
+            <summary>
+            The humidity of the <see cref="T:OpenWeatherMap.Cache.Models.Readings"/>.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.MinimumTemperature">
+            <summary>
+            Minimum temperature at the moment. This is minimal currently observed temperature (within large megalopolises and urban areas).
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.MaximumTemperature">
+            <summary>
+            Maximum temperature at the moment. This is maximal currently observed temperature (within large megalopolises and urban areas).
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.SeaLevelPressure">
+            <summary>
+            Atmospheric pressure at sea level
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.GroundLevelPressure">
+            <summary>
+            Atmospheric pressure at ground level
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.WindSpeed">
+            <summary>
+            Wind speed
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.WindDirection">
+            <summary>
+            Wind direction
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.WindGust">
+            <summary>
+            Wind gust
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.Cloudiness">
+            <summary>
+            Cloudiness
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.RainfallLastHour">
+            <summary>
+            Rainfall in the last hour
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.RainfallLastThreeHours">
+            <summary>
+            Rainfall in the last three hours
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.SnowfallLastHour">
+            <summary>
+            Snowfall in the last hour
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.SnowfallLastThreeHours">
+            <summary>
+            Snowfall in the last three hours
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.CountryCode">
+            <summary>
+            Two-letter country code
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.Sunrise">
+            <summary>
+            The sunrise time in UTC
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.Sunset">
+            <summary>
+            The sunset time in UTC
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.TimeZoneOffset">
+            <summary>
+            The offset for the time zone from UTC
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.CityId">
+            <summary>
+            The city id
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.CityName">
+            <summary>
+            The city name
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.FetchedTime">
+            <summary>
+            The time the <see cref="T:OpenWeatherMap.Cache.Models.Readings"/> object was fetched, in UTC.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.MeasuredTime">
+            <summary>
+            The time the <see cref="T:OpenWeatherMap.Cache.Models.Readings"/> data was updated by OpenWeatherMap, in UTC.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.Exception">
+            <summary>
+            The <see cref="T:OpenWeatherMap.Cache.Models.OpenWeatherMapCacheException"/> that was thrown while getting the readings.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.IsSuccessful">
+            <summary>
+            Indicates whether the <see cref="T:OpenWeatherMap.Cache.Models.Readings"/> were successful or not.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.IsFromCache">
+            <summary>
+            Indicates whether the <see cref="T:OpenWeatherMap.Cache.Models.Readings"/> were retrieved from cache or directly from the API.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.Readings.ApiRequestMade">
+            <summary>
+            Indicates whether an API request needed to be made or not to service the request.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.Readings.Equals(OpenWeatherMap.Cache.Models.Readings)">
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)"/>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.Readings.Equals(System.Object)">
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)"/>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.Readings.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenWeatherMap.Cache.Models.ZipCode">
+            <summary>
+            Class for the location with zip code (postal code) and country.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.ZipCode.Zip">
+            <summary>
+            The zip code (postal code) of the <see cref="T:OpenWeatherMap.Cache.Models.ZipCode"/>.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Cache.Models.ZipCode.CountryCode">
+            <summary>
+            The 2 letter ISO 3166-1 alpha-2 country code of the <see cref="T:OpenWeatherMap.Cache.Models.ZipCode"/>.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.ZipCode.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:OpenWeatherMap.Cache.Models.ZipCode"/>.
+            </summary>
+            <param name="zip">The zip code (postal code) of the location.</param>
+            <param name="countryCode">The 2 letter ISO 3166-1 alpha-2 country code of the location.</param>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.ZipCode.Equals(OpenWeatherMap.Cache.Models.ZipCode)">
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)"/>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.ZipCode.Equals(System.Object)">
+            <inheritdoc cref="M:System.IEquatable`1.Equals(`0)"/>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.Models.ZipCode.GetHashCode">
+            <inheritdoc />
+        </member>
+        <member name="T:OpenWeatherMap.Cache.IOpenWeatherMapCache">
+            <summary>
+            Interface for <see cref="T:OpenWeatherMap.Cache.OpenWeatherMapCache"/>
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.IOpenWeatherMapCache.GetReadingsAsync``1(``0,System.Threading.CancellationToken)">
+            <inheritdoc cref="M:OpenWeatherMap.Cache.OpenWeatherMapCache.GetReadingsAsync``1(``0,System.Threading.CancellationToken)"/>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.IOpenWeatherMapCache.GetReadings``1(``0)">
+            <inheritdoc cref="M:OpenWeatherMap.Cache.OpenWeatherMapCache.GetReadings``1(``0)"/>
+        </member>
+        <member name="T:OpenWeatherMap.Cache.OpenWeatherMapCache">
+            <summary>
+            Class for OpenWeatherMapCache
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.OpenWeatherMapCache.#ctor(System.String,System.Int32,OpenWeatherMap.Cache.Enums.FetchMode,System.Int32,System.Int32,System.String)">
+            <summary>
+            Initializes a new instance of <see cref="T:OpenWeatherMap.Cache.OpenWeatherMapCache"/>.
+            </summary>
+            <param name="apiKey">The unique API key obtained from OpenWeatherMap.</param>
+            <param name="apiCachePeriod">The number of milliseconds to cache for.</param>
+            <param name="fetchMode">The mode of operation. Defaults to <see cref="F:OpenWeatherMap.Cache.Enums.FetchMode.AlwaysUseLastMeasuredButExtendCache"/>.</param>
+            <param name="resiliencyPeriod">The number of milliseconds to keep on using cache values if API is unavailable. Defaults to <see cref="F:OpenWeatherMap.Cache.Constants.OpenWeatherMapCacheDefaults.DefaultResiliencyPeriod"/>.</param>
+            <param name="timeout">The number of milliseconds for the <see cref="T:System.Net.WebRequest"/> timeout. Defaults to <see cref="F:OpenWeatherMap.Cache.Constants.OpenWeatherMapCacheDefaults.DefaultTimeout"/>.</param>
+            <param name="logPath">Logs the latest result for a given location to file. Defaults to null (disabled).</param>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.OpenWeatherMapCache.GetReadingsAsync``1(``0,System.Threading.CancellationToken)">
+            <summary>
+            Attempts to get the readings for the provided <see cref="T:OpenWeatherMap.Cache.Models.Location"/> or <see cref="T:OpenWeatherMap.Cache.Models.ZipCode"/>.
+            </summary>
+            <param name="locationQuery">The <see cref="T:OpenWeatherMap.Cache.Models.Location"/> or <see cref="T:OpenWeatherMap.Cache.Models.ZipCode"/> for which to get the readings.</param>
+            <param name="cancellationToken">Optional <see cref="T:System.Threading.CancellationToken"/>.</param>
+            <returns>A <see cref="T:OpenWeatherMap.Cache.Models.Readings"/> object for the provided location, or the default value if the operation failed (<see cref="P:OpenWeatherMap.Cache.Models.Readings.IsSuccessful"/> = false).</returns>
+        </member>
+        <member name="M:OpenWeatherMap.Cache.OpenWeatherMapCache.GetReadings``1(``0)">
+            <summary>
+            Attempts to get the readings for the provided <see cref="T:OpenWeatherMap.Cache.Models.Location"/> or <see cref="T:OpenWeatherMap.Cache.Models.ZipCode"/> by calling GetReadingsAsync synchronously (not ideal).
+            </summary>
+            <param name="locationQuery">The <see cref="T:OpenWeatherMap.Cache.Models.Location"/> or <see cref="T:OpenWeatherMap.Cache.Models.ZipCode"/> for which to get the readings.</param>
+            <returns>A <see cref="T:OpenWeatherMap.Cache.Models.Readings"/> object for the provided location, or the default value if the operation failed (<see cref="P:OpenWeatherMap.Cache.Models.Readings.IsSuccessful"/> = false).</returns>
+        </member>
+    </members>
+</doc>

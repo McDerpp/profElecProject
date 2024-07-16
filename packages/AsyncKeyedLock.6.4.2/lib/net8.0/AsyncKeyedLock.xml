@@ -1,0 +1,1883 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AsyncKeyedLock</name>
+    </assembly>
+    <members>
+        <member name="T:AsyncKeyedLock.AsyncKeyedLocker">
+            <summary>
+            Represents a lock based on a key (keyed semaphores), limiting concurrent threads sharing the same key to a specified number.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, sets the <see cref="T:System.Threading.SemaphoreSlim"/> initial count to 1, has the default concurrency level, has the default initial capacity, and uses the default comparer for the key type.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(AsyncKeyedLock.AsyncKeyedLockOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the default concurrency level, has the default initial capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(System.Action{AsyncKeyedLock.AsyncKeyedLockOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the default concurrency level, has the default initial capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(System.Collections.Generic.IEqualityComparer{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, sets the <see cref="T:System.Threading.SemaphoreSlim"/> initial count to 1, has the default concurrency level, has the default initial capacity, and uses the specified <see cref="T:System.Collections.Generic.IEqualityComparer`1"/>.
+            </summary>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(AsyncKeyedLock.AsyncKeyedLockOptions,System.Collections.Generic.IEqualityComparer{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the default concurrency level, has the default initial capacity, and uses the specified <see cref="T:System.Collections.Generic.IEqualityComparer`1"/>.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(System.Action{AsyncKeyedLock.AsyncKeyedLockOptions},System.Collections.Generic.IEqualityComparer{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the default concurrency level, has the default initial capacity, and uses the specified <see cref="T:System.Collections.Generic.IEqualityComparer`1"/>.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, sets the <see cref="T:System.Threading.SemaphoreSlim"/> initial count to 1, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> can contain.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(AsyncKeyedLock.AsyncKeyedLockOptions,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> can contain.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(System.Action{AsyncKeyedLock.AsyncKeyedLockOptions},System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> can contain.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(System.Int32,System.Int32,System.Collections.Generic.IEqualityComparer{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, uses the specified <see cref="T:System.Threading.SemaphoreSlim"/> initial count, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> can contain.</param>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(AsyncKeyedLock.AsyncKeyedLockOptions,System.Int32,System.Int32,System.Collections.Generic.IEqualityComparer{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> can contain.</param>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker.#ctor(System.Action{AsyncKeyedLock.AsyncKeyedLockOptions},System.Int32,System.Int32,System.Collections.Generic.IEqualityComparer{System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> can contain.</param>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="T:AsyncKeyedLock.AsyncKeyedLocker`1">
+            <summary>
+            Represents a thread-safe keyed locker that allows you to lock based on a key (keyed semaphores), only allowing a specified number of concurrent threads that share the same key.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncKeyedLocker`1.Index">
+            <summary>
+            Read-only index of objects held by <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/>.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncKeyedLocker`1.MaxCount">
+            <summary>
+            The maximum number of requests for the semaphore that can be granted concurrently. Defaults to 1.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, sets the <see cref="T:System.Threading.SemaphoreSlim"/> initial count to 1, has the default concurrency level, has the default initial capacity, and uses the default comparer for the key type.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(AsyncKeyedLock.AsyncKeyedLockOptions)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the default concurrency level, has the default initial capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(System.Action{AsyncKeyedLock.AsyncKeyedLockOptions})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the default concurrency level, has the default initial capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, sets the <see cref="T:System.Threading.SemaphoreSlim"/> initial count to 1, has the default concurrency level, has the default initial capacity, and uses the specified <see cref="T:System.Collections.Generic.IEqualityComparer`1"/>.
+            </summary>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(AsyncKeyedLock.AsyncKeyedLockOptions,System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the default concurrency level, has the default initial capacity, and uses the specified <see cref="T:System.Collections.Generic.IEqualityComparer`1"/>.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(System.Action{AsyncKeyedLock.AsyncKeyedLockOptions},System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the default concurrency level, has the default initial capacity, and uses the specified <see cref="T:System.Collections.Generic.IEqualityComparer`1"/>.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, sets the <see cref="T:System.Threading.SemaphoreSlim"/> initial count to 1, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> can contain.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(AsyncKeyedLock.AsyncKeyedLockOptions,System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> can contain.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(System.Action{AsyncKeyedLock.AsyncKeyedLockOptions},System.Int32,System.Int32)">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> can contain.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(System.Int32,System.Int32,System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, uses the specified <see cref="T:System.Threading.SemaphoreSlim"/> initial count, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> can contain.</param>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(AsyncKeyedLock.AsyncKeyedLockOptions,System.Int32,System.Int32,System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> can contain.</param>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.#ctor(System.Action{AsyncKeyedLock.AsyncKeyedLockOptions},System.Int32,System.Int32,System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1" /> class, uses the specified <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/>, has the specified concurrency level and capacity, and uses the default comparer for the key type.
+            </summary>
+            <param name="options">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockOptions"/> to use.</param>
+            <param name="concurrencyLevel">The estimated number of threads that will update the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> concurrently.</param>
+            <param name="capacity">The initial number of elements that the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker`1"/> can contain.</param>
+            <param name="comparer">The equality comparison implementation to use when comparing keys.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">Parameter is out of range.</exception>
+            <exception cref="T:System.ArgumentNullException"><paramref name="comparer"/> is null.</exception>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.GetOrAdd(`0)">
+            <summary>
+            Provider for <see cref="T:AsyncKeyedLock.AsyncKeyedLockReleaser`1"/>
+            </summary>
+            <param name="key">The key for which a releaser should be obtained.</param>
+            <returns>A created or retrieved <see cref="T:AsyncKeyedLock.AsyncKeyedLockReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.Lock(`0)">
+            <summary>
+            Synchronously lock based on a key.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.Lock(`0,System.Threading.CancellationToken)">
+            <summary>
+            Synchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.Lock(`0,System.Int32,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.Lock(`0,System.TimeSpan,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.Lock(`0,System.Int32,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.Lock(`0,System.TimeSpan,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLock(`0,System.Action,System.Int32)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLock(`0,System.Action,System.TimeSpan)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLock(`0,System.Action,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLock(`0,System.Action,System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.Int32,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.Int32,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.TimeSpan,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.TimeSpan,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.Int32,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.Int32,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.TimeSpan,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.TimeSpan,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.Int32,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.Int32,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.TimeSpan,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.TimeSpan,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.Int32,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.Int32,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.TimeSpan,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.TimeSpan,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.Int32,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.TimeSpan,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.Int32,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.TimeSpan,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.Int32,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.TimeSpan,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.Int32,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.LockAsync(`0,System.TimeSpan,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean)">
+            <summary>
+            Synchronously lock based on a key. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Synchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean,System.Int32,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean,System.TimeSpan,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean,System.Int32,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean,System.TimeSpan,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Int32,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.TimeSpan,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Int32,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.TimeSpan,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Int32,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.TimeSpan,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Int32,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.TimeSpan,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.IsInUse(`0)">
+            <summary>
+            Checks whether or not there is a thread making use of a keyed lock.
+            </summary>
+            <param name="key">The key requests are locked on.</param>
+            <returns><see langword="true"/> if the key is in use; otherwise, false.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.GetCount(`0)">
+            <summary>
+            Get the number of requests concurrently locked for a given key.
+            </summary>
+            <param name="key">The key requests are locked on.</param>
+            <returns>The number of requests.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.GetRemainingCount(`0)">
+            <summary>
+            Get the number of requests concurrently locked for a given key.
+            </summary>
+            <param name="key">The key requests are locked on.</param>
+            <returns>The number of requests concurrently locked for a given key.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.GetCurrentCount(`0)">
+            <summary>
+            Get the number of remaining threads that can enter the lock for a given key.
+            </summary>
+            <param name="key">The key requests are locked on.</param>
+            <returns>The number of remaining threads that can enter the lock for a given key.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLocker`1.Dispose">
+            <summary>
+            Disposes the AsyncKeyedLocker.
+            </summary>
+        </member>
+        <member name="T:AsyncKeyedLock.AsyncKeyedLockOptions">
+            <summary>
+            Options for the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> constructors
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncKeyedLockOptions.MaxCount">
+            <summary>
+            The maximum number of requests for the semaphore that can be granted concurrently. Defaults to 1.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncKeyedLockOptions.PoolSize">
+            <summary>
+            The size of the pool to use in order for generated objects to be reused. This is NOT a concurrency limit,
+            but if the pool is empty then a new object will be created rather than waiting for an object to return to
+            the pool. Defaults to 0 (disabled) but strongly recommended to use.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncKeyedLockOptions.PoolInitialFill">
+            <summary>
+            The number of items to fill the pool with during initialization. Defaults to -1 (fill up to pool size).
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLockOptions.#ctor(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Initializes options for the <see cref="T:AsyncKeyedLock.AsyncKeyedLocker"/> constructors
+            </summary>
+            <param name="maxCount">The maximum number of requests for the semaphore that can be granted concurrently. Defaults to 1.</param>
+            <param name="poolSize">The size of the pool to use in order for generated objects to be reused. This is NOT a concurrency limit,
+            but if the pool is empty then a new object will be created rather than waiting for an object to return to
+            the pool. Defaults to 0 (disabled) but strongly recommended to use.</param>
+            <param name="poolInitialFill">The number of items to fill the pool with during initialization. Defaults to -1 (fill up to pool size).</param>
+        </member>
+        <member name="T:AsyncKeyedLock.AsyncKeyedLockReleaser`1">
+            <summary>
+            Represents an <see cref="T:System.IDisposable"/> for AsyncKeyedLock.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncKeyedLockReleaser`1.Key">
+            <summary>
+            The key used for locking.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncKeyedLockReleaser`1.ReferenceCount">
+            <summary>
+            The number of threads processing or waiting to process for the specific <see cref="P:AsyncKeyedLock.AsyncKeyedLockReleaser`1.Key"/>.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncKeyedLockReleaser`1.SemaphoreSlim">
+            <summary>
+            The exposed <see cref="P:AsyncKeyedLock.AsyncKeyedLockReleaser`1.SemaphoreSlim"/> instance used to limit the number of threads that can access the lock concurrently.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLockReleaser`1.Dispose">
+            <summary>
+            Releases the <see cref="P:AsyncKeyedLock.AsyncKeyedLockReleaser`1.SemaphoreSlim"/> object once.
+            </summary>
+        </member>
+        <member name="T:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1">
+            <summary>
+            Represents an <see cref="T:System.IDisposable"/> for AsyncKeyedLock with timeouts.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1.EnteredSemaphore">
+            <summary>
+            True if the timeout was reached, false if not.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1.#ctor(System.Boolean,AsyncKeyedLock.AsyncKeyedLockReleaser{`0})">
+            <summary>
+            Creates a releaser that only disposes the <see cref="T:System.Threading.SemaphoreSlim"/> if enteredSemaphore is true.
+            </summary>
+            <param name="enteredSemaphore">If set to true, will dispose the <see cref="T:System.Threading.SemaphoreSlim"/>.</param>
+            <param name="releaser">The <see cref="T:AsyncKeyedLock.AsyncKeyedLockReleaser`1"/> releaser.</param>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncKeyedLockTimeoutReleaser`1.Dispose">
+            <summary>
+            Releases the <see cref="T:System.Threading.SemaphoreSlim"/> object once, depending on whether or not the semaphore was entered.
+            </summary>
+        </member>
+        <member name="T:AsyncKeyedLock.AsyncNonKeyedLocker">
+            <summary>
+            Represents a lock, limiting concurrent threads to a specified number.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncNonKeyedLocker.MaxCount">
+            <summary>
+            The maximum number of requests for the semaphore that can be granted concurrently. Defaults to 1.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.#ctor(System.Int32)">
+            <summary>
+            The maximum number of requests for the semaphore that can be granted concurrently. Defaults to 1.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.Lock">
+            <summary>
+            Synchronously lock.
+            </summary>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.Lock(System.Threading.CancellationToken)">
+            <summary>
+            Synchronously lock, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.Lock(System.Int32,System.Boolean@)">
+            <summary>
+            Synchronously lock, setting a limit for the number of milliseconds to wait.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.Lock(System.TimeSpan,System.Boolean@)">
+            <summary>
+            Synchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.Lock(System.Int32,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.Lock(System.TimeSpan,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.Boolean)">
+            <summary>
+            Asynchronously lock.
+            </summary>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.Int32,System.Boolean)">
+            <summary>
+            Asynchronously lock, setting a limit for the number of milliseconds to wait.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.TimeSpan,System.Boolean)">
+            <summary>
+            Asynchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.Int32,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.TimeSpan,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock.
+            </summary>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.Int32,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock, setting a limit for the number of milliseconds to wait.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.TimeSpan,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.Int32,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.LockAsync(System.TimeSpan,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLock(System.Boolean)">
+            <summary>
+            Synchronously lock. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLock(System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Synchronously lock, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLock(System.Boolean,System.Int32,System.Boolean@)">
+            <summary>
+            Synchronously lock, setting a limit for the number of milliseconds to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLock(System.Boolean,System.TimeSpan,System.Boolean@)">
+            <summary>
+            Synchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLock(System.Boolean,System.Int32,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLock(System.Boolean,System.TimeSpan,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.Boolean)">
+            <summary>
+            Asynchronously lock. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.Int32,System.Boolean)">
+            <summary>
+            Asynchronously lock, setting a limit for the number of milliseconds to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.TimeSpan,System.Boolean)">
+            <summary>
+            Asynchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.Int32,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.TimeSpan,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.Int32,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock, setting a limit for the number of milliseconds to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.TimeSpan,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.Int32,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.ConditionalLockAsync(System.Boolean,System.TimeSpan,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.GetRemainingCount">
+            <summary>
+            Get the number of requests concurrently locked.
+            </summary>
+            <returns>The number of requests concurrently locked.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.GetCurrentCount">
+            <summary>
+            Get the number of remaining threads that can enter the lock.
+            </summary>
+            <returns>The number of remaining threads that can enter the lock.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLocker.Dispose">
+            <summary>
+            Disposes the AsyncNonKeyedLocker.
+            </summary>
+        </member>
+        <member name="T:AsyncKeyedLock.AsyncNonKeyedLockReleaser">
+            <summary>
+            Represents an <see cref="T:System.IDisposable"/> for AsyncNonKeyedLocker.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLockReleaser.Dispose">
+            <summary>
+            Releases the <see cref="T:System.Threading.SemaphoreSlim"/> object once.
+            </summary>
+        </member>
+        <member name="T:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser">
+            <summary>
+            Represents an <see cref="T:System.IDisposable"/> for AsyncNonKeyedLocker with timeouts.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser.EnteredSemaphore">
+            <summary>
+            True if the timeout was reached, false if not.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.AsyncNonKeyedLockTimeoutReleaser.Dispose">
+            <summary>
+            Releases the <see cref="T:System.Threading.SemaphoreSlim"/> object once, depending on whether or not the semaphore was entered.
+            </summary>
+        </member>
+        <member name="T:AsyncKeyedLock.EmptyDisposable">
+            <summary>
+            A disposable that does absolutely nothing.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.EmptyDisposable.Dispose">
+            <summary>
+            Dispose but in reality do nothing
+            </summary>
+        </member>
+        <member name="T:AsyncKeyedLock.StripedAsyncKeyedLocker`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="TKey"></typeparam>
+        </member>
+        <member name="P:AsyncKeyedLock.StripedAsyncKeyedLocker`1.MaxCount">
+            <summary>
+            The maximum number of requests for the semaphore that can be granted concurrently. Defaults to 1.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.#ctor(System.Int32,System.Int32,System.Collections.Generic.IEqualityComparer{`0})">
+            <summary>
+            
+            </summary>
+            <param name="numberOfStripes"></param>
+            <param name="maxCount"></param>
+            <param name="comparer"></param>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.Lock(`0)">
+            <summary>
+            Synchronously lock based on a key.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.Lock(`0,System.Threading.CancellationToken)">
+            <summary>
+            Synchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.Lock(`0,System.Int32,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.Lock(`0,System.TimeSpan,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.Lock(`0,System.Int32,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.Lock(`0,System.TimeSpan,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLock(`0,System.Action,System.Int32)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLock(`0,System.Action,System.TimeSpan)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLock(`0,System.Action,System.Int32,System.Threading.CancellationToken)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLock(`0,System.Action,System.TimeSpan,System.Threading.CancellationToken)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.Int32,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.Int32,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.TimeSpan,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.TimeSpan,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.Int32,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.Int32,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.TimeSpan,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.TimeSpan,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.Int32,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.Int32,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.TimeSpan,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.TimeSpan,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.Int32,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.Int32,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Action,System.TimeSpan,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, scynchronously execute an action and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="action">The synchronous action.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.TryLockAsync(`0,System.Func{System.Threading.Tasks.Task},System.TimeSpan,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, and if not timed out, ascynchronously execute a <see cref="T:System.Func`1"/> and release, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="task">The asynchronous task.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>False if timed out, true if it successfully entered.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.Int32,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.TimeSpan,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.Int32,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.TimeSpan,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.Int32,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.TimeSpan,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.Int32,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.LockAsync(`0,System.TimeSpan,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean)">
+            <summary>
+            Synchronously lock based on a key. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean,System.Threading.CancellationToken)">
+            <summary>
+            Synchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean,System.Int32,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean,System.TimeSpan,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean,System.Int32,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLock(`0,System.Boolean,System.TimeSpan,System.Threading.CancellationToken,System.Boolean@)">
+            <summary>
+            Synchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="entered">An out parameter showing whether or not the semaphore was entered.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Int32,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.TimeSpan,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Int32,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.TimeSpan,System.Threading.CancellationToken,System.Boolean)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="continueOnCapturedContext">true to attempt to marshal the continuation back to the original context captured; otherwise, false. Defaults to false.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Int32,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.TimeSpan,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.Int32,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the number of milliseconds to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="millisecondsTimeout">The number of milliseconds to wait, <see cref="F:System.Threading.Timeout.Infinite"/> (-1) to wait indefinitely, or zero to test the state of the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.ConditionalLockAsync(`0,System.Boolean,System.TimeSpan,System.Threading.CancellationToken,System.Threading.Tasks.ConfigureAwaitOptions)">
+            <summary>
+            Asynchronously lock based on a key, setting a limit for the <see cref="T:System.TimeSpan"/> to wait, while observing a <see cref="T:System.Threading.CancellationToken"/>. If the condition is false, it enters without locking.
+            </summary>
+            <param name="key">The key to lock on.</param>
+            <param name="getLock">Condition for getting lock if true, otherwise enters without locking.</param>
+            <param name="timeout">A <see cref="T:System.TimeSpan"/> that represents the number of milliseconds to wait, a <see cref="T:System.TimeSpan"/> that represents -1 milliseconds to wait indefinitely, or a <see cref="T:System.TimeSpan"/> that represents 0 milliseconds to test the wait handle and return immediately.</param>
+            <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken"/> to observe.</param>
+            <param name="configureAwaitOptions">Options used to configure how awaits on this task are performed.</param>
+            <returns>A disposable value of type <see cref="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser"/>.</returns>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLocker`1.IsInUse(`0)">
+            <summary>
+            Checks whether or not there is a thread making use of a keyed lock. Since striped locking means some keys could share the same lock,
+            a value of true does not necessarily mean that the key is in use but that its lock is in use.
+            </summary>
+            <param name="key">The key requests are locked on.</param>
+            <returns><see langword="true"/> if the key's lock is in use; otherwise, false.</returns>
+        </member>
+        <member name="T:AsyncKeyedLock.StripedAsyncKeyedLockReleaser">
+            <summary>
+            Represents an <see cref="T:System.IDisposable"/> for AsyncKeyedLock.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.StripedAsyncKeyedLockReleaser.SemaphoreSlim">
+            <summary>
+            The exposed <see cref="T:System.Threading.SemaphoreSlim"/> instance used to limit the number of threads that can access the lock concurrently.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLockReleaser.Dispose">
+            <summary>
+            Releases the <see cref="T:System.Threading.SemaphoreSlim"/> object once.
+            </summary>
+        </member>
+        <member name="T:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser">
+            <summary>
+            Represents an <see cref="T:System.IDisposable"/> for AsyncKeyedLock with timeouts.
+            </summary>
+        </member>
+        <member name="P:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser.EnteredSemaphore">
+            <summary>
+            True if the timeout was reached, false if not.
+            </summary>
+        </member>
+        <member name="M:AsyncKeyedLock.StripedAsyncKeyedLockTimeoutReleaser.Dispose">
+            <summary>
+            Releases the <see cref="T:System.Threading.SemaphoreSlim"/> object once, depending on whether or not the semaphore was entered.
+            </summary>
+        </member>
+    </members>
+</doc>
