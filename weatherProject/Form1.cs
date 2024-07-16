@@ -291,10 +291,10 @@ namespace weatherProject
                 else if (weather == "Rain" || weather == "Drizzle")
                 {
                     backgroundImage = Properties.Resources._000f72fa82485a9cb19b7c7978391ca91; ;
-                    mainPanel.GradientBottomLeft = Color.Orange;
-                    mainPanel.GradientBottomRight = Color.IndianRed;
-                    mainPanel.GradientTopLeft = Color.SlateBlue;
-                    mainPanel.GradientTopRight = Color.RoyalBlue;
+                    mainPanel.GradientBottomLeft = Color.White;
+                    mainPanel.GradientBottomRight = Color.MediumPurple;
+                    mainPanel.GradientTopLeft = Color.LightSteelBlue;
+                    mainPanel.GradientTopRight = Color.DarkSlateBlue;
                     
                 }
 
@@ -476,6 +476,22 @@ namespace weatherProject
             else
                 bunifuImageButton6.Image = Properties.Resources.lock_svgrepo_com;
 
+        }
+
+        private void formOnEnter(object sender, EventArgs e)
+        {
+            bunifuImageButton2.Visible = true;
+            bunifuImageButton6.Visible = true;
+            bunifuImageButton5.Visible = true;
+            bunifuImageButton1.Visible = true;
+        }
+
+        private void formOnExit(object sender, EventArgs e)
+        {
+            bunifuImageButton2.Visible = false;
+            bunifuImageButton6.Visible = false;
+            bunifuImageButton5.Visible = false;
+            bunifuImageButton1.Visible = false;
         }
     } 
 }

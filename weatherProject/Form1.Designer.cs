@@ -238,9 +238,9 @@
             this.bunifuImageButton2.BackColor = System.Drawing.Color.Transparent;
             this.bunifuImageButton2.Image = global::weatherProject.Properties.Resources.menu_alt_1_svgrepo_com;
             this.bunifuImageButton2.ImageActive = null;
-            this.bunifuImageButton2.Location = new System.Drawing.Point(0, 0);
+            this.bunifuImageButton2.Location = new System.Drawing.Point(12, 6);
             this.bunifuImageButton2.Name = "bunifuImageButton2";
-            this.bunifuImageButton2.Size = new System.Drawing.Size(32, 20);
+            this.bunifuImageButton2.Size = new System.Drawing.Size(23, 29);
             this.bunifuImageButton2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.bunifuImageButton2.TabIndex = 24;
             this.bunifuImageButton2.TabStop = false;
@@ -253,9 +253,9 @@
             this.mainPanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.mainPanel.Controls.Add(this.panel7);
             this.mainPanel.Controls.Add(this.bunifuCustomLabel21);
-            this.mainPanel.GradientBottomLeft = System.Drawing.Color.Thistle;
-            this.mainPanel.GradientBottomRight = System.Drawing.Color.Violet;
-            this.mainPanel.GradientTopLeft = System.Drawing.Color.DarkViolet;
+            this.mainPanel.GradientBottomLeft = System.Drawing.Color.White;
+            this.mainPanel.GradientBottomRight = System.Drawing.Color.MediumPurple;
+            this.mainPanel.GradientTopLeft = System.Drawing.Color.LightSteelBlue;
             this.mainPanel.GradientTopRight = System.Drawing.Color.DarkSlateBlue;
             this.mainPanel.Location = new System.Drawing.Point(0, 170);
             this.mainPanel.Name = "mainPanel";
@@ -316,7 +316,7 @@
             this.forecastDescription1.Size = new System.Drawing.Size(45, 13);
             this.forecastDescription1.TabIndex = 38;
             this.forecastDescription1.Text = "weather";
-            this.forecastDescription1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.forecastDescription1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // forecastWeather1
             // 
@@ -329,7 +329,7 @@
             this.forecastWeather1.Size = new System.Drawing.Size(62, 17);
             this.forecastWeather1.TabIndex = 37;
             this.forecastWeather1.Text = "Weather";
-            this.forecastWeather1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.forecastWeather1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // forecastDay1
             // 
@@ -1040,7 +1040,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.BackgroundImage = global::weatherProject.Properties.Resources.thunder;
+            this.BackgroundImage = global::weatherProject.Properties.Resources._000f72fa82485a9cb19b7c7978391ca9;
             this.ClientSize = new System.Drawing.Size(562, 435);
             this.Controls.Add(this.pressureTitle);
             this.Controls.Add(this.visibilityTitle);
@@ -1065,6 +1065,7 @@
             this.Controls.Add(this.temperatureLabel);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "subPanel";
             this.Text = "Weather";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);

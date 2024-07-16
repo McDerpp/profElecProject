@@ -2,7 +2,6 @@ C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\weatherPro
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\weatherProject.exe
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\weatherProject.pdb
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\AsyncKeyedLock.dll
-C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\Bunifu_UI_v1.5.3.dll
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\Microsoft.Extensions.Caching.Memory.dll
@@ -55,3 +54,10 @@ C:\Users\CLARK\source\repos\weatherProject\weatherProject\obj\Release\weatherPro
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\obj\Release\weatherP.3E859E0A.Up2Date
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\obj\Release\weatherProject.exe
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\obj\Release\weatherProject.pdb
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\System.IO.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\System.Net.Http.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\System.Runtime.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\System.Security.Cryptography.Algorithms.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\System.Security.Cryptography.Encoding.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\System.Security.Cryptography.Primitives.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Release\System.Security.Cryptography.X509Certificates.dll

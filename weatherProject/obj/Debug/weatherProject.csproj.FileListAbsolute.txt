@@ -2,7 +2,6 @@ C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\weatherProje
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\weatherProject.exe
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\weatherProject.pdb
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\AsyncKeyedLock.dll
-C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\Bunifu_UI_v1.5.3.dll
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\Microsoft.Extensions.Caching.Abstractions.dll
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\Microsoft.Extensions.Caching.Memory.dll
@@ -55,3 +54,10 @@ C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\Nager.Countr
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\Nager.Country.xml
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\obj\Debug\weatherProject.subPanel.resources
 C:\Users\CLARK\source\repos\weatherProject\weatherProject\obj\Debug\weatherProject.Form2.resources
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\System.IO.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\System.Net.Http.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\System.Runtime.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\System.Security.Cryptography.Algorithms.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\System.Security.Cryptography.Encoding.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\System.Security.Cryptography.Primitives.dll
+C:\Users\CLARK\source\repos\weatherProject\weatherProject\bin\Debug\System.Security.Cryptography.X509Certificates.dll
